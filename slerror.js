@@ -1,8 +1,10 @@
 /**
-* @param trainingExamples_ {Array<Array>} each row of the outer array is an array of 2 elements, 
+* @param trainingExamples_ {Array<Array>} each element of the outer array is an array of 2 elements, 
 *                                         for input and output part of the training example 
 * @param trainingExampleErrorFn {(expectedOutput:any, actualOutput:any)=>any}
 * @param candSlnPredictionFn {(candSln:any,input:any)=>output:any}
+* SL = supervised learning
+* candSln = candidate solution
 */
 export function initSlError(trainingExamples_, trainingExampleErrorFn, candSlnPredictionFn) {
   trainingExamples = trainingExamples_
