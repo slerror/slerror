@@ -1,8 +1,9 @@
 /**
-* @param trainingExamples_ {Array<Array>} each element of the outer array is an array of 2 elements, 
-*                                         for input and output part of the training example 
+* @param trainingExamples_ {Array<Array>} each element of the outer array is an array of 2 elements. 
+*                  These 2 elements correspond to the input and output part of the training example. 
 * @param trainingExampleErrorFn {(expectedOutput:any, actualOutput:any)=>any}
 * @param candSlnPredictionFn {(candSln:any,input:any)=>output:any}
+* Acronymns:
 * SL = supervised learning
 * candSln = candidate solution
 */
