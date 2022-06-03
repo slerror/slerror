@@ -3,14 +3,21 @@
 *                  These 2 elements correspond to the input and output part of the training example. 
 * @param trainingExampleErrorFn {(expectedOutput:any, actualOutput:any)=>any}
 * @param mlModelPredictionFn {(mlModel:any,input:any)=>output:any}
+* @param onTrainingExamplesChangedFn {()=>void}
 * Acronymns:
 * SL = supervised learning
 * mlModel = machine learning model/system
 */
-export function initSlError(trainingExamples_, trainingExampleErrorFn, mlModelPredictionFn) {
-  trainingExamples = trainingExamples_
+export function initSlError(trainingExamples_, trainingExampleErrorFn, mlModelPredictionFn, onTrainingExamplesChangedFn) {
   trainingExampleError = trainingExampleErrorFn
   predict = mlModelPredictionFn
+  onTrainingExamplesChanged = onTrainingExamplesChangedFn
+  setTrainingExamples(trainingExamples_)
+}
+
+export function setTrainingExamples(trainingExamples_) {
+    trainingExamples = trainingExamples_
+    onTrainingExamplesChanged()
 }
 
 export function slError(mlModel) {
@@ -27,3 +34,4 @@ export function slError(mlModel) {
 let trainingExamples
 let trainingExampleError
 let predict
+let onTrainingExamplesChanged
