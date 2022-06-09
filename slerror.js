@@ -4,7 +4,7 @@
 * @param trainingExampleErrorFn {(expectedOutput:any, actualOutput:any)=>any}
 * @param mlModelPredictionFn {(mlModel:any,input:any)=>output:any}
 * @param onTrainingExamplesChangedFn {()=>void}
-* Acronymns:
+* Acronyms:
 * SL = supervised learning
 * mlModel = machine learning model/system
 */
