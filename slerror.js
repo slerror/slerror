@@ -4,19 +4,22 @@
  * @param trainingExampleErrorFn {(expectedOutput:any, actualOutput:any)=>any}
  * @param mlModelPredictionFn {(mlModel:any,input:any)=>any}
  * @param onTrainingExamplesChangedFn {()=>void}
+ * @param exampleToStrFn {(example:any[])=>string}
  * Acronyms:
  * SL = supervised learning
  * mlModel = machine learning model/system
  */
- export function initSlError(
+export function initSlError(
   trainingExamples_,
   trainingExampleErrorFn,
   mlModelPredictionFn,
-  onTrainingExamplesChangedFn
+  onTrainingExamplesChangedFn,
+  exampleToStrFn
 ) {
   trainingExampleError = trainingExampleErrorFn;
   predict = mlModelPredictionFn;
   onTrainingExamplesChanged = onTrainingExamplesChangedFn;
+  exampleToStr = exampleToStrFn;
   setTrainingExamples(trainingExamples_);
 }
 
@@ -42,7 +45,15 @@ export function slError(mlModel) {
   return totalError;
 }
 
+/**
+ * Returns a string representation of the training examples.
+ */
+export function trainingExamplesToStr() {
+  return trainingExamples.map(exampleToStr).join("\n");
+}
+
 let trainingExamples;
 let trainingExampleError;
 let predict;
 let onTrainingExamplesChanged;
+let exampleToStr;
