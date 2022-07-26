@@ -14,12 +14,18 @@ export function initSlError(
   trainingExampleErrorFn,
   mlModelPredictionFn,
   onTrainingExamplesChangedFn,
-  exampleToStrFn
+  exampleToStrFn,
+  totalErrorBeforeAccumulationFn,
+  accumulateTotalErrorFn,
+  finalizeTotalErrorFn
 ) {
   trainingExampleError = trainingExampleErrorFn;
   predict = mlModelPredictionFn;
   onTrainingExamplesChanged = onTrainingExamplesChangedFn;
   exampleToStr = exampleToStrFn;
+  totalErrorBeforeAccumulation = totalErrorBeforeAccumulationFn;
+  accumulateTotalError = accumulateTotalErrorFn;
+  finalizeTotalError = finalizeTotalErrorFn;
   setTrainingExamples(trainingExamples_);
 }
 
@@ -35,13 +41,17 @@ export function setTrainingExamples(trainingExamples_) {
  * @param {any} mlModel
  */
 export function slError(mlModel) {
-  let totalError = 0;
+  let totalError = totalErrorBeforeAccumulation();
   for (const trainingExample of trainingExamples) {
     const input = trainingExample[0];
     const expectedOutput = trainingExample[1];
     const actualOutput = predict(mlModel, input);
-    totalError += trainingExampleError(expectedOutput, actualOutput);
+    accumulateTotalError(
+      totalError,
+      trainingExampleError(expectedOutput, actualOutput)
+    );
   }
+  totalError = finalizeTotalError(totalError);
   return totalError;
 }
 
@@ -57,3 +67,6 @@ let trainingExampleError;
 let predict;
 let onTrainingExamplesChanged;
 let exampleToStr;
+let totalErrorBeforeAccumulation;
+let accumulateTotalError;
+let finalizeTotalError;
