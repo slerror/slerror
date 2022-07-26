@@ -46,7 +46,7 @@ export function slError(mlModel) {
     const input = trainingExample[0];
     const expectedOutput = trainingExample[1];
     const actualOutput = predict(mlModel, input);
-    accumulateTotalError(
+    totalError = accumulateTotalError(
       totalError,
       trainingExampleError(expectedOutput, actualOutput)
     );
